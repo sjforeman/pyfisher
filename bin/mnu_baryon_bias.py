@@ -3,7 +3,7 @@ Script to take file with C_L^\kappa values and compute resulting bias on
 a determination of neutrino mass.
 
 Example usage (from pyfisher root directory):
-    python bin/mnu_baryon_bias.py S4 lensing output/test.dat -tau_prior 0.01
+    python bin/mnu_baryon_bias.py S4 lensing output/test_ratio.dat -tau_prior 0.01
 
 The file specified in the kappaRatioFile argument should contain lists
 of ell values and C_L^kappa ratio values. The following command will
