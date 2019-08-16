@@ -71,7 +71,7 @@ if True:
     # Read Config
     iniFile = os.environ['FISHER_DIR']+"/input/" + sys.argv[1] #"makeDefaults_szar.ini"
     #iniFile = os.environ['FISHER_DIR']+'/input/June2_makeDerivs_optimal.ini'
-    Config = ConfigParser.SafeConfigParser()
+    Config = ConfigParser()
     Config.optionxform = str
     Config.read(iniFile)
     spec = Config.get('general','spec')
