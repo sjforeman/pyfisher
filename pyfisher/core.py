@@ -15,7 +15,7 @@ def getHubbleCosmology(theta,params,precision = 0.00001,H0init = 70.,H0max = 100
     pars.InitPower.set_params(As=params['As'],ns=params['ns'],r=params['r'])
     #no need for this: pars.set_for_lmax(lmax=int(params['lmax']), lens_potential_accuracy=1, max_eta_k=2*params['lmax'])
 
-    print "Searching for H0 through bisection..."
+    print("Searching for H0 through bisection...")
     j = 0
     while np.abs(err)>precision:
         pars.set_cosmology(H0=H0, ombh2=params['ombh2'], omch2=params['omch2'], tau=params['tau'],mnu=params['mnu'],nnu=params['nnu'],omk=params['omk'])
@@ -34,5 +34,5 @@ def getHubbleCosmology(theta,params,precision = 0.00001,H0init = 70.,H0max = 100
         j+=1
         
 
-    print "Found H0 = ", H0, " in ", j , " iterations."
+    print("Found H0 = ", H0, " in ", j , " iterations.")
     return H0
