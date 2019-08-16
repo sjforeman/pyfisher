@@ -2,7 +2,7 @@ import camb
 from camb import model, initialpower
 import numpy as np
 import sys, os
-import ConfigParser
+from configparser import ConfigParser
 from orphics import mpi
 
 from pyfisher.core import getHubbleCosmology
@@ -107,13 +107,13 @@ if True:
     numcores = comm.Get_size()
     Njobs = len(paramList)
     num_each,each_tasks = mpi.mpi_distribute(Njobs,numcores)
-    if rank==0: print ("At most ", max(num_each) , " tasks...")
+    if rank==0: print("At most ", max(num_each) , " tasks...")
     my_tasks = each_tasks[rank]
         
     print("Rank ", rank , " reporting for duty")
     # Save fiducials
     if rank==0:
-        print "Calculating and saving fiducial cosmology..."
+        print("Calculating and saving fiducial cosmology...")
         # if not('H0' in fparams):
         #     fparams['H0'] = getHubbleCosmology(theta=fparams['theta100'],params=fparams)
         fidCls = getPowerCamb(fparams,spec,AccuracyBoost=AccuracyBoost)
@@ -129,12 +129,12 @@ if True:
         # Calculate and save derivatives
         paramName = paramList[task]
         
-        print "Calculating derivatives for ", paramName
+        print("Calculating derivatives for ", paramName)
         if derivForm == 0:
-            print 'Using 2-point stencil'
+            print('Using 2-point stencil')
             h = stepSizes[paramName]
             
-            print "Calculating forward difference for ", paramName
+            print("Calculating forward difference for ", paramName)
             pparams = fparams.copy()
             pparams[paramName] = fparams[paramName] + 0.5*h
             # if paramName=='theta100':
@@ -142,7 +142,7 @@ if True:
             pCls = getPowerCamb(pparams,spec,AccuracyBoost=AccuracyBoost)
             #pCls = getPowerCamb(pparams,spec+"_scalar",AccuracyBoost=AccuracyBoost)
     
-            print "Calculating backward difference for ", paramName
+            print("Calculating backward difference for ", paramName)
             mparams = fparams.copy()
             mparams[paramName] = fparams[paramName] - 0.5*h
             # if paramName=='theta100':
@@ -153,7 +153,7 @@ if True:
             dCls = (pCls-mCls)/h
             
         elif derivForm == 1:
-            print 'Using 5-point stencil'
+            print('Using 5-point stencil')
             h = 0.5*stepSizes[paramName]
             
             params1 = fparams.copy()
@@ -178,5 +178,5 @@ if True:
     
         np.savetxt(os.environ['FISHER_DIR']+"/output/"+out_pre+'_'+spec+"_dCls_"+paramName+".csv",dCls,delimiter=",")
 
-        if rank==0: print ("Rank 0 done with task ", task+1, " / " , len(my_tasks))
+        if rank==0: print("Rank 0 done with task ", task+1, " / " , len(my_tasks))
 
