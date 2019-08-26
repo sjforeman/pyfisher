@@ -8,7 +8,7 @@ Example usage (from pyfisher root directory):
 The file specified in the kappaRatioFile argument should contain lists
 of ell values and C_L^kappa ratio values. The following command will
 generate a file in the correct format:
-    np.savetxt('ratio.dat',(ell,ratio))
+    np.savetxt('test_ratio.dat',(ell,ratio))
 where ell and ratio are 1d arrays of ell and ratio values, respectively.
 """
 
